@@ -6,7 +6,8 @@ const lastName = ref('Lovekirby')
 const age = ref(20)
 const gender = ref('<i>Female</i>')
 const picture = ref('https://upload.wikimedia.org/wikipedia/en/4/4e/Kirby_Nintendo.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original')
-const size = ref(200)
+const height = ref(200)
+const width = ref(250)
 const hobbies = ref(['Reading', 'Traveling', 'Photography'])
 const skill = ref(
   {
@@ -18,11 +19,15 @@ const skill = ref(
 const getFullName = () => {
   return `${firstName.value} ${lastName.value}`
 }
+
+const showInfo = () => {
+  return alert(`ชื่อ - สกุล : ${getFullName()}`) 
+}
 </script>
  
 <template>
   <section> 
-    <img :src="picture" :width="size" :height="size" />
+    <img :src="picture" :width="width" :height="height" />
     <p>ชื่อ - สกุล : {{ getFullName() }}</p> 
     <p>อายุ :{{ age }} ปี</p>
     <p>เพศ <span v-html="gender"></span></p>
@@ -35,6 +40,8 @@ const getFullName = () => {
       <li> ภาษาโปรแกรม : {{ skill.name }}</li>
       <li> ระดับ : {{ skill.level }}</li>
     </ul>
+
+    <button @click="showInfo">คลิกเพื่อดูข้อมูล</button>
   </section>
 </template>
 
