@@ -20,6 +20,9 @@ const setNickName = (event: Event) => {
   nickname.value = (event.target as HTMLInputElement).value
 }
 
+const submitFrom = () => {
+  alert(`บันทึกชื่อเล่น : ${nickname.value} สำเร็จ`)
+}
 
 const getFullName = () => {
   return `${firstName.value} ${lastName.value}`
@@ -41,7 +44,13 @@ const decrementAge = (ageDec: number) => {
 <template>
   <section> 
     <img :src="picture" :width="width" :height="height" />  <br/>
-    ป้อนชื่อเล่น : <input type="text" v-model="nickname" v-on:input="setNickName"/>
+
+    <form @submit.prevent="submitFrom()">
+      <label for="nickname">ป้อนชื่อเล่น : </label>
+      <input type="text" id="nickname" v-model="nickname" v-on:input="setNickName"/>
+      <button type="submit">บันทึก</button>
+    </form>
+
     <p>ชื่อ - สกุล : {{ getFullName() }}</p> 
     <p>ชื่อเล่น : {{ nickname }}</p>
     <p>อายุ :{{ age }} ปี</p>
