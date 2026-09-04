@@ -23,6 +23,14 @@ const getFullName = () => {
 const showInfo = () => {
   return alert(`ชื่อ - สกุล : ${getFullName()}`) 
 }
+
+const incrementAge = () => {
+  age.value++
+}
+
+const decrementAge = () => {
+  age.value--
+}
 </script>
  
 <template>
@@ -42,6 +50,8 @@ const showInfo = () => {
     </ul>
 
     <button @click="showInfo">คลิกเพื่อดูข้อมูล</button>
+    <button @click="incrementAge">เพิ่มอายุ</button>
+    <button @click="decrementAge">ลดอายุ</button>
   </section>
 </template>
 
