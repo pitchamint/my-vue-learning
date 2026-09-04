@@ -15,6 +15,11 @@ const skill = ref(
     level: 'Expert'
   })
 
+let nickname = ref('')
+const setNickName = (event: Event) => {
+  nickname.value = (event.target as HTMLInputElement).value
+}
+
 
 const getFullName = () => {
   return `${firstName.value} ${lastName.value}`
@@ -35,8 +40,10 @@ const decrementAge = (ageDec: number) => {
  
 <template>
   <section> 
-    <img :src="picture" :width="width" :height="height" />
+    <img :src="picture" :width="width" :height="height" />  <br/>
+    ป้อนชื่อเล่น : <input type="text" v-model="nickname" v-on:input="setNickName"/>
     <p>ชื่อ - สกุล : {{ getFullName() }}</p> 
+    <p>ชื่อเล่น : {{ nickname }}</p>
     <p>อายุ :{{ age }} ปี</p>
     <p>เพศ <span v-html="gender"></span></p>
     <p>งานอดิเรก : </p>
