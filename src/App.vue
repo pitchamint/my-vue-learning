@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 const firstName = ref('Pitchamint')
 const lastName = ref('Lovekirby')
@@ -15,6 +15,7 @@ const skill = ref(
     level: 'Expert'
   })
 const isVisible = ref(false)
+const salary = ref(20000)
 
 let nickname = ref('')
 const setNickName = (event: Event) => {
@@ -25,12 +26,10 @@ const submitFrom = () => {
   alert(`บันทึกชื่อเล่น : ${nickname.value} สำเร็จ`)
 }
 
-const getFullName = () => {
-  return `${firstName.value} ${lastName.value}`
-}
+const getFullName = computed(() => `${firstName.value} ${lastName.value}`)
 
 const showInfo = () => {
-  return alert(`ชื่อ - สกุล : ${getFullName()}`)
+  return alert(`ชื่อ - สกุล : ${getFullName.value}`)
 }
 
 const incrementAge = (ageIn: number) => {
@@ -44,6 +43,36 @@ const decrementAge = (ageDec: number) => {
 const toggleVisible = () => {
   isVisible.value = !isVisible.value
 }
+
+const getRandomMethod = () => {
+  return Math.floor(Math.random() * 100)
+}
+
+const getRandomComputed = computed(() => {
+  return Math.floor(Math.random() * 100)
+})
+
+const getIncome = computed(() => {
+  return salary.value * 12
+})
+
+const getPosition = computed(() => {
+  return salary.value >= 35000 ? 'Project Manager' : 'Programmer'
+})
+
+const addSalary = (amount: number) => {
+  salary.value += amount
+}
+
+watch(salary, (newSalary) => {
+  if (newSalary > 50000) {
+    alert('เงินเดือนไม่ควรเกิน 50000')
+    setTimeout(() => {
+      salary.value = 50000
+    }, 1000)
+  }
+})
+
 </script>
 
 <template>
@@ -56,9 +85,16 @@ const toggleVisible = () => {
       <button type="submit">บันทึก</button>
     </form>
 
-    <p>ชื่อ - สกุล : {{ getFullName() }}</p>
+    <p>ชื่อ - สกุล : {{ getFullName }}</p>
     <p>ชื่อเล่น : {{ nickname }}</p>
     <p>อายุ :{{ age }} ปี</p>
+
+    <p>รายได้ต่อเดือน : {{ salary }} บาท</p>
+    <p>รายได้ต่อปี : {{ getIncome }} บาท</p>
+    <p>ตำแหน่งงาน : {{ getPosition }}</p>
+    <button @click="addSalary(5000)">เพิ่มรายได้</button>
+    <button @click="addSalary(-5000)">ลดรายได้</button>
+
     <button @click="toggleVisible">{{ isVisible ? 'ซ่อนข้อมูล' : 'แสดงข้อมูล' }}</button>
     <article v-show="isVisible">
       <p>เพศ <span v-html="gender"></span></p>
@@ -76,10 +112,15 @@ const toggleVisible = () => {
       </ul>
     </article>
 
-
     <button @click="showInfo">คลิกเพื่อดูข้อมูล</button>
     <button @click="incrementAge(10)">เพิ่มอายุ</button>
     <button @click="decrementAge(5)">ลดอายุ</button>
+
+    <p>ค่าสุ่มจาก method ครั้งแรก : {{ getRandomMethod() }}</p>
+    <p>ค่าสุ่มจาก method ครั้งที่สอง : {{ getRandomMethod() }}</p>
+
+    <p>ค่าสุ่มจาก computed ครั้งแรก : {{ getRandomComputed }}</p>
+    <p>ค่าสุ่มจาก computed ครั้งที่สอง : {{ getRandomComputed }}</p>
   </section>
 </template>
 
