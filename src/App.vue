@@ -29,7 +29,7 @@ const getFullName = () => {
 }
 
 const showInfo = () => {
-  return alert(`ชื่อ - สกุล : ${getFullName()}`) 
+  return alert(`ชื่อ - สกุล : ${getFullName()}`)
 }
 
 const incrementAge = (ageIn: number) => {
@@ -40,25 +40,29 @@ const decrementAge = (ageDec: number) => {
   age.value -= ageDec
 }
 </script>
- 
+
 <template>
-  <section> 
-    <img :src="picture" :width="width" :height="height" />  <br/>
+  <section>
+    <img :src="picture" :width="width" :height="height" /> <br />
 
     <form @submit.prevent="submitFrom()">
       <label for="nickname">ป้อนชื่อเล่น : </label>
-      <input type="text" id="nickname" v-model="nickname" v-on:input="setNickName"/>
+      <input type="text" id="nickname" v-model="nickname" v-on:input="setNickName" />
       <button type="submit">บันทึก</button>
     </form>
 
-    <p>ชื่อ - สกุล : {{ getFullName() }}</p> 
+    <p>ชื่อ - สกุล : {{ getFullName() }}</p>
     <p>ชื่อเล่น : {{ nickname }}</p>
     <p>อายุ :{{ age }} ปี</p>
     <p>เพศ <span v-html="gender"></span></p>
-    <p>งานอดิเรก : </p>
-    <ul>
-      <li v-for="h in hobbies" :key="h">{{ h }}</li>
-    </ul>
+    <p v-if="hobbies.length === 0">ไม่มีงานอดิเรก</p>
+    <div v-else>
+      <p>งานอดิเรก : </p>
+      <ul>
+        <li v-for="h in hobbies" :key="h">{{ h }}</li>
+      </ul>
+    </div>
+
     <p>ทักษะ : </p>
     <ul>
       <li> ภาษาโปรแกรม : {{ skill.name }}</li>
@@ -71,6 +75,4 @@ const decrementAge = (ageDec: number) => {
   </section>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
