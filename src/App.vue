@@ -14,6 +14,7 @@ const skill = ref(
     name: 'HTML',
     level: 'Expert'
   })
+const isVisible = ref(false)
 
 let nickname = ref('')
 const setNickName = (event: Event) => {
@@ -39,6 +40,10 @@ const incrementAge = (ageIn: number) => {
 const decrementAge = (ageDec: number) => {
   age.value -= ageDec
 }
+
+const toggleVisible = () => {
+  isVisible.value = !isVisible.value
+}
 </script>
 
 <template>
@@ -54,20 +59,23 @@ const decrementAge = (ageDec: number) => {
     <p>ชื่อ - สกุล : {{ getFullName() }}</p>
     <p>ชื่อเล่น : {{ nickname }}</p>
     <p>อายุ :{{ age }} ปี</p>
-    <p>เพศ <span v-html="gender"></span></p>
-    <p v-if="hobbies.length === 0">ไม่มีงานอดิเรก</p>
-    <div v-else>
-      <p>งานอดิเรก : </p>
+    <button @click="toggleVisible">รายละเอียด</button>
+    <article v-show="isVisible">
+      <p>เพศ <span v-html="gender"></span></p>
+      <p v-if="hobbies.length === 0">ไม่มีงานอดิเรก</p>
+      <div v-else>
+        <p>งานอดิเรก : </p>
+        <ul>
+          <li v-for="h in hobbies" :key="h">{{ h }}</li>
+        </ul>
+      </div>
+      <p>ทักษะ : </p>
       <ul>
-        <li v-for="h in hobbies" :key="h">{{ h }}</li>
+        <li> ภาษาโปรแกรม : {{ skill.name }}</li>
+        <li> ระดับ : {{ skill.level }}</li>
       </ul>
-    </div>
+    </article>
 
-    <p>ทักษะ : </p>
-    <ul>
-      <li> ภาษาโปรแกรม : {{ skill.name }}</li>
-      <li> ระดับ : {{ skill.level }}</li>
-    </ul>
 
     <button @click="showInfo">คลิกเพื่อดูข้อมูล</button>
     <button @click="incrementAge(10)">เพิ่มอายุ</button>
