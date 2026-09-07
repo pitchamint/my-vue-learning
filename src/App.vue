@@ -59,7 +59,7 @@ const toggleVisible = () => {
     <p>ชื่อ - สกุล : {{ getFullName() }}</p>
     <p>ชื่อเล่น : {{ nickname }}</p>
     <p>อายุ :{{ age }} ปี</p>
-    <button @click="toggleVisible">รายละเอียด</button>
+    <button @click="toggleVisible">{{ isVisible ? 'ซ่อนข้อมูล' : 'แสดงข้อมูล' }}</button>
     <article v-show="isVisible">
       <p>เพศ <span v-html="gender"></span></p>
       <p v-if="hobbies.length === 0">ไม่มีงานอดิเรก</p>
